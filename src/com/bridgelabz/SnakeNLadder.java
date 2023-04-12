@@ -5,7 +5,9 @@ import javax.annotation.processing.SupportedSourceVersion;
 public class SnakeNLadder {
     final int STARTPOSITION = 0;
     final int ENDPOINT = 100;
+    int count;
     int dieRoll(){
+        count++;
         return (int) (Math.random()*(6-1+1)+1);
     }
     int checkOption(){
@@ -48,6 +50,7 @@ public class SnakeNLadder {
             }
         }
         if (playerPosition == s.ENDPOINT) {
+            System.out.println("The total no of time die rolled is "+s.count);
             System.out.println("The player is reached "+playerPosition+" and win the game.");
         }
     }
