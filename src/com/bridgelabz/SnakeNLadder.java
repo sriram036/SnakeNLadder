@@ -4,6 +4,7 @@ import javax.annotation.processing.SupportedSourceVersion;
 
 public class SnakeNLadder {
     final int STARTPOSITION = 0;
+    final int ENDPOINT = 100;
     int dieRoll(){
         return (int) (Math.random()*(6-1+1)+1);
     }
@@ -13,10 +14,15 @@ public class SnakeNLadder {
     public static void main(String[] args) {
         SnakeNLadder s = new SnakeNLadder();
         int playerPosition = s.STARTPOSITION;
-        while(playerPosition < 100){
+        while(playerPosition < s.ENDPOINT){
             int dieRollNum = s.dieRoll();
             System.out.println("The Dice Number is " + dieRollNum);
-            playerPosition =playerPosition + dieRollNum;
+            if(playerPosition+dieRollNum > s.ENDPOINT){
+                playerPosition = playerPosition - dieRollNum;
+            }
+            else{
+                playerPosition = playerPosition + dieRollNum;
+            }
             int option = s.checkOption();
             System.out.println("The option is " + option);
             switch (option) {
@@ -26,6 +32,9 @@ public class SnakeNLadder {
                 break;
                 case 2: {
                     playerPosition = playerPosition + dieRollNum;
+                    if(playerPosition > s.ENDPOINT){
+                        playerPosition = playerPosition - dieRollNum;
+                    }
                 }
                 break;
                 case 3: {
@@ -38,8 +47,7 @@ public class SnakeNLadder {
                 playerPosition = s.STARTPOSITION;
             }
         }
-        System.out.println("The player position is "+ playerPosition);
-        if (playerPosition >= 100) {
+        if (playerPosition == s.ENDPOINT) {
             System.out.println("The player is reached "+playerPosition+" and win the game.");
         }
     }
